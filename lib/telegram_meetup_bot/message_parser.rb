@@ -1,6 +1,7 @@
 module TelegramMeetupBot
   class MessageParser
     attr_reader :message
+    User = Struct.new(:id, :username, :first_name)
 
     def initialize(message)
       @message = message
@@ -8,14 +9,12 @@ module TelegramMeetupBot
 
     def author
       from = message.from
-      {id: from.id, username: from.username, first_name: from.first_name}
+      User.new(from.id, from.username, from.first_name)
     end
 
     def command_with_params
-      text = message.text
-
-      if text[0] == '/' && text.length > 1
-        words = text[1..-1].split(' ')
+      if message.text[0] == '/' && message.text.length > 1
+        words = message.text[1..-1].split(' ')
         {command: words.first, params: words.drop(1)}
       else
         {}
