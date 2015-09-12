@@ -8,7 +8,7 @@ module TelegramMeetupBot
 
       class << self
         def storage
-          @storage ||= Storage.new(redis: redis, key: redis_key)
+          @storage ||= Storage.new(redis: redis, redis_key: redis_key)
         end
 
         def token

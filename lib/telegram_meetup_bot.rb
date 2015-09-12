@@ -7,6 +7,8 @@ require "telegram_meetup_bot/messenger"
 require "telegram_meetup_bot/message_parser"
 require "telegram_meetup_bot/storage"
 require "telegram_meetup_bot/calendar"
+require "telegram_meetup_bot/commands_handler"
+# require 'pry'
 
 module TelegramMeetupBot
   def self.run(config_path)

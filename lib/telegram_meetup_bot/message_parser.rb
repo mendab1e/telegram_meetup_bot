@@ -12,6 +12,10 @@ module TelegramMeetupBot
       User.new(from.id, from.username, from.first_name)
     end
 
+    def chat_id
+      message.chat.id
+    end
+
     def command
       parse_message { |words| words.first }
     end

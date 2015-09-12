@@ -9,6 +9,11 @@ module TelegramMeetupBot
       @time = args[:time]
     end
 
+    def self.users_for_date(date)
+      storage = Initializers::ConfigLoader.storage
+      storage.get_users_for_date(date)
+    end
+
     def add_user_to_date
       process_user do |users, saved_user|
         if saved_user
