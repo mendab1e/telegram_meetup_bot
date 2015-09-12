@@ -3,7 +3,8 @@ require 'spec_helper'
 RSpec.describe TelegramMeetupBot::Calendar do
   let(:storage) { double('storage') }
   let(:user) { TelegramMeetupBot::MessageParser::User.new(1, 'Ikari01', 'Shinji') }
-  subject { described_class.new(storage: storage, user: user, date: Date.today, time: '10:00') }
+  before { allow(TelegramMeetupBot::Initializers::ConfigLoader).to receive(:storage).and_return(storage)}
+  subject { described_class.new(user: user, date: Date.today, time: '10:00') }
 
   describe '#delete_user_from_date' do
     before { allow(storage).to receive(:set_users_to_date) }

@@ -3,7 +3,7 @@ module TelegramMeetupBot
     attr_reader :storage, :user, :date, :time
 
     def initialize(args)
-      @storage = args.fetch(:storage)
+      @storage = Initializers::ConfigLoader.storage
       @date = args.fetch(:date)
       @user = args.fetch(:user)
       @time = args[:time]

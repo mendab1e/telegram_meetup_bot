@@ -12,12 +12,19 @@ module TelegramMeetupBot
       User.new(from.id, from.username, from.first_name)
     end
 
-    def command_with_params
+    def command
+      parse_message { |words| words.first }
+    end
+
+    def params
+      parse_message { |words| words.drop(1) } || []
+    end
+
+    private
+
+    def parse_message(&block)
       if message.text[0] == '/' && message.text.length > 1
-        words = message.text[1..-1].split(' ')
-        {command: words.first, params: words.drop(1)}
-      else
-        {}
+        yield message.text[1..-1].split(' ')
       end
     end
   end
