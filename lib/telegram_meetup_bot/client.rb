@@ -9,8 +9,8 @@ module TelegramMeetupBot
     def run
       begin
         Telegram::Bot::Client.run(token) do |bot|
-          messenger = Messenger.new(bot.api)
           bot.listen do |message|
+            messenger = Messenger.new(api: bot.api, chat_id: message.chat.id)
             CommandsHandler.new(message: message, messenger: messenger).process
           end
         end
