@@ -1,3 +1,6 @@
+require 'date'
+require 'time'
+
 module TelegramMeetupBot
   class ParamsParser
     attr_reader :arg
@@ -20,7 +23,7 @@ module TelegramMeetupBot
     end
 
     def parse_time
-
+      Time.parse(arg).strftime('%R') rescue nil
     end
   end
 end

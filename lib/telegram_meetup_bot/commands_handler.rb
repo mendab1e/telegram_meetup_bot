@@ -22,16 +22,18 @@ module TelegramMeetupBot
     private
 
     def today(params)
-      handle_date Date.today
+      time = ParamsParser.new(params.first).parse_time
+      handle_date Date.today, time
     end
 
     def date(params)
       date = ParamsParser.new(params.first).parse_date
-      handle_date(date) if date_is_valid?(date)
+      time = ParamsParser.new(params[1]).parse_time
+      handle_date(date, time) if date_is_valid?(date)
     end
 
-    def handle_date(date)
-      Calendar.new(date: date, user: author).add_user_to_date
+    def handle_date(date, time)
+      Calendar.new(date: date, user: author, time: time).add_user_to_date
       messenger.send build_response(date: date)
     end
 
