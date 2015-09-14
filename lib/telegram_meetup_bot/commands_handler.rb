@@ -92,7 +92,7 @@ module TelegramMeetupBot
 
     def build_response(args = {})
       response_key = args.fetch(:key) { command }
-      response = Initializers::ResponsesLoader.responses[response_key]
+      response = Initializers::ResponsesLoader.responses[response_key].dup
       response.gsub!('%first_name%', author.first_name)
       response.gsub!('%date%', args[:date].strftime('%d %h %Y')) if args[:date]
 

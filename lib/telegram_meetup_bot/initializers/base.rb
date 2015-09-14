@@ -10,7 +10,7 @@ module TelegramMeetupBot
             check_if_exist(file)
             config = YAML.load(File.open(file).read)
             validate(config.keys, file)
-
+            config.map { |_,v| v.freeze }
             config
           end
         end

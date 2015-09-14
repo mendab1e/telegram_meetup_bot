@@ -12,9 +12,11 @@ module TelegramMeetupBot
     def self.formated_users_for_date(date)
       storage = Initializers::ConfigLoader.storage
       users = storage.get_users_for_date(date)
-      users.map do |user|
-        "#{user[:first_name]} @#{user[:username]} #{user[:time]}"
-      end.join("\n")
+      users.map! do |user|
+        username = user[:username] ? " @#{user[:username]}" : ''
+        "#{user[:first_name]}#{username} #{user[:time]}"
+      end
+      users.join("\n")
     end
 
     def add_user_to_date
