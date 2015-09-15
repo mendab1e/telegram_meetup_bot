@@ -28,10 +28,26 @@ RSpec.describe TelegramMeetupBot::MessageParser do
     end
 
     context "when message with params" do
-      let(:message) { instance_double('message', text: '/date 08.11.1998', from: from) }
+      let(:message) { instance_double('message', text: '/date 08.11.07', from: from) }
 
       it { expect(subject.command).to eq('date') }
-      it { expect(subject.params).to eq(['08.11.1998']) }
+      it { expect(subject.params).to eq(['08.11.07']) }
+    end
+
+    context "when command contain @ and username equal to bot" do
+      before { allow(TelegramMeetupBot::Initializers::ConfigLoader).to receive(:bot_name).and_return('test_bot')}
+      let(:message) { instance_double('message', text: '/today_list@test_bot', from: from) }
+
+      it { expect(subject.command).to eq('today_list') }
+      it { expect(subject.params).to eq([]) }
+    end
+
+    context "when command contain @ and username isn't equal to bot" do
+      before { allow(TelegramMeetupBot::Initializers::ConfigLoader).to receive(:bot_name).and_return('production_bot')}
+      let(:message) { instance_double('message', text: '/today_list@test_bot', from: from) }
+
+      it { expect(subject.command).to eq(nil) }
+      it { expect(subject.params).to eq([]) }
     end
   end
 

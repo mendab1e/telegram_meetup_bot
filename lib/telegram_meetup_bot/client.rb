@@ -10,8 +10,10 @@ module TelegramMeetupBot
       begin
         Telegram::Bot::Client.run(token) do |bot|
           bot.listen do |message|
-            messenger = Messenger.new(api: bot.api, chat_id: message.chat.id)
-            CommandsHandler.new(message: message, messenger: messenger).process
+            if message.text
+              messenger = Messenger.new(api: bot.api, chat_id: message.chat.id)
+              CommandsHandler.new(message: message, messenger: messenger).process
+            end
           end
         end
       rescue Telegram::Bot::Exceptions::ResponseError => e

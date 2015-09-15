@@ -13,7 +13,10 @@ module TelegramMeetupBot
     end
 
     def command
-      parse_message { |words| words.first }
+      parse_message do |words|
+        cmd, bot_name = words.first.split('@')
+        cmd if bot_name.nil? || bot_name == Initializers::ConfigLoader.bot_name
+      end
     end
 
     def params
@@ -23,7 +26,7 @@ module TelegramMeetupBot
     private
 
     def parse_message(&block)
-      if message.text[0] == '/' && message.text.length > 1
+      if message.text && message.text[0] == '/' && message.text.length > 1
         yield message.text[1..-1].split(' ')
       end
     end

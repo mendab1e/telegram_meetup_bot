@@ -26,9 +26,10 @@ Generate sample configurations:
 
     $ telegram_meetup_bot --generate
 
-You should specify your bot_token in ```~/.telegram_meetup_bot/config.yml```.
+You should specify your bot_token and bot_name in ```~/.telegram_meetup_bot/config.yml```.
 ```
 bot_token: 'insert your token here'
+bot_name: 'meetup_dev_bot'
 redis_host: 'localhost'
 redis_port: '6379'
 redis_key: 'meetup_bot'
