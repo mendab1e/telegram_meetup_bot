@@ -1,5 +1,7 @@
 # TelegramMeetupBot
 
+[![Build Status](https://travis-ci.org/mendab1e/telegram_meetup_bot.svg)](https://travis-ci.org/mendab1e/telegram_meetup_bot)
+
 Telegram bot for meetups organisation. It suits really well for small communities, where people want to attend a place together, but not on regular basis.
 
 ![chat example](https://cloud.githubusercontent.com/assets/854386/9875843/23b37e8a-5bba-11e5-8c6f-c4777c8a1eff.png)
