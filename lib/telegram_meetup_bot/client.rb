@@ -16,6 +16,7 @@ module TelegramMeetupBot
         end
       rescue Telegram::Bot::Exceptions::ResponseError => e
         puts e
+        sleep 1
         run # run again on telegram server error
       end
     end

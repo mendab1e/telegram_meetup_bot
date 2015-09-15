@@ -17,18 +17,20 @@ module TelegramMeetupBot
       else
         send command, params
       end
+
+      no_username_notification unless author.username
     end
 
     private
 
     def today(params)
-      time = ParamsParser.new(params.first).parse_time
-      handle_date Date.today, time
+      time = ParamsParser.new(params.first).parse_time if params.first
+      handle_date(Date.today, time)
     end
 
     def date(params)
       date = ParamsParser.new(params.first).parse_date
-      time = ParamsParser.new(params[1]).parse_time
+      time = ParamsParser.new(params[1]).parse_time if params[1]
       handle_date(date, time) if date_is_valid?(date)
     end
 
@@ -69,6 +71,10 @@ module TelegramMeetupBot
 
     def help
       messenger.send build_response
+    end
+
+    def no_username_notification
+      messenger.send build_response(key: 'no_username')
     end
 
     def date_is_valid?(date)
