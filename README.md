@@ -1,6 +1,6 @@
 # TelegramMeetupBot
 
-[![Build Status](https://travis-ci.org/mendab1e/telegram_meetup_bot.svg)](https://travis-ci.org/mendab1e/telegram_meetup_bot)
+[![Gem Version](https://badge.fury.io/rb/telegram_meetup_bot.svg)](http://badge.fury.io/rb/telegram_meetup_bot) [![Build Status](https://travis-ci.org/mendab1e/telegram_meetup_bot.svg)](https://travis-ci.org/mendab1e/telegram_meetup_bot)
 
 Telegram bot for meetups organisation. It suits really well for small communities, where people want to attend a place together, but not on regular basis.
 
@@ -44,7 +44,7 @@ Run your bot:
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/telegram_meetup_bot/fork )
+1. Fork it ( https://github.com/mendab1e/telegram_meetup_bot/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
