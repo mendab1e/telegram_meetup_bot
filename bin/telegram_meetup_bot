@@ -1,5 +1,18 @@
 #!/usr/bin/env ruby
 
+require 'fileutils'
 require 'telegram_meetup_bot'
 
-TelegramMeetupBot.run ARGV.first
+config_path = File.join(ENV['HOME'], '.telegram_meetup_bot')
+
+if ARGV.first == '--generate'
+  FileUtils.mkdir(config_path) unless Dir.exist?(config_path)
+  samples_dir = File.expand_path('../../config_samples', __FILE__)
+  %w(config.yml responses.yml).each do |sample|
+    file = File.join(samples_dir, sample)
+    FileUtils.cp(file, config_path)
+    puts "#{config_path}/#{sample} generated"
+  end
+else
+  TelegramMeetupBot.run config_path
+end

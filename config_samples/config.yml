@@ -1,0 +1,4 @@
+bot_token: 'insert your token here'
+redis_host: 'localhost'
+redis_port: '6379'
+redis_key: 'meetup_bot'
