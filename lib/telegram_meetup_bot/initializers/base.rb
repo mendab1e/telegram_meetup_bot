@@ -7,7 +7,7 @@ module TelegramMeetupBot
         def preload(config_path)
           @configurations ||= begin
             file = File.join(config_path, self::FILE_NAME)
-            check_if_exist(file)
+            exit_if_file_not_exist(file)
             config = YAML.load(File.open(file).read)
             validate(config.keys, file)
             config.map { |_,v| v.freeze }
@@ -15,7 +15,7 @@ module TelegramMeetupBot
           end
         end
 
-        def check_if_exist(file)
+        def exit_if_file_not_exist(file)
           unless File.exist? file
             puts "Error: file not found #{file}"
             exit
@@ -31,7 +31,6 @@ module TelegramMeetupBot
           end
         end
       end
-
     end
   end
 end

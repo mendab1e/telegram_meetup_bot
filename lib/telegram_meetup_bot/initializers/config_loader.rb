@@ -1,5 +1,3 @@
-require 'redis'
-
 module TelegramMeetupBot
   module Initializers
     class ConfigLoader < Base
@@ -32,7 +30,6 @@ module TelegramMeetupBot
           )
         end
       end
-
     end
   end
 end
