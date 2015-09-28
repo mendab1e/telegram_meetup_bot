@@ -7,7 +7,7 @@ module TelegramMeetupBot
       @chat_id = args.fetch(:chat_id)
     end
 
-    def send(text)
+    def send_text(text)
       api.send_message(chat_id: chat_id, text: text)
     end
   end
