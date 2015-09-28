@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Timur Yanberdin"]
   spec.email         = ["yanberdint@gmail.com"]
   spec.summary       = "Telegram bot for meetups organisation"
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/mendab1e/telegram_meetup_bot"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -23,5 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry"
 
   spec.add_dependency 'redis'
-  spec.add_dependency 'telegram-bot-ruby'
+  spec.add_dependency 'telegram-bot-ruby', ">= 0.3.5"
 end
