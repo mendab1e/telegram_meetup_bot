@@ -15,7 +15,7 @@ module TelegramMeetupBot
     end
 
     def process
-      if method(command).arity == 0
+      if self.class.instance_method(command).arity == 0
         send command
       else
         send command, params
