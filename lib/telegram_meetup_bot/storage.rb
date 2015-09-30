@@ -15,5 +15,9 @@ module TelegramMeetupBot
     def set_users_to_date(users, date)
       redis.hset(key, date, users.to_yaml)
     end
+
+    def get_all_available_dates
+      dates = redis.hkeys(key)
+    end
   end
 end

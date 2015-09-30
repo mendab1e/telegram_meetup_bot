@@ -60,4 +60,38 @@ RSpec.describe TelegramMeetupBot::Calendar do
       end
     end
   end
+
+  describe 'Calendar#submited_days_of_month' do
+    let(:storage) { double('storage') }
+    let(:month) { 7 }
+    subject { described_class }
+    before { allow(storage).to receive(:get_all_available_dates).and_return(dates) }
+
+    context "when month isn't current" do
+      let(:dates) { %w(2015-07-30 2015-07-15 2015-07-16 2015-06-14 2015-08-17) }
+      it "works" do
+        Timecop.freeze(Date.new(2015, month - 1, 1)) do
+          expect(subject.submited_days_of_month(month)).to eq("15 16 30")
+        end
+      end
+    end
+
+    context "when month is current" do
+      let(:dates) { %w(2015-07-30 2015-07-15 2015-07-16 2015-06-14 2015-08-17) }
+      it "starts from today" do
+        Timecop.freeze(Date.new(2015, month, 16)) do
+          expect(subject.submited_days_of_month(month)).to eq("16 30")
+        end
+      end
+    end
+
+    context "when month < current_month" do
+      let(:dates) { %w(2015-06-30 2016-06-15) }
+      it "starts from today" do
+        Timecop.freeze(Date.new(2015, month, 16)) do
+          expect(subject.submited_days_of_month(month - 1)).to eq("15")
+        end
+      end
+    end
+  end
 end
