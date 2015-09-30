@@ -18,4 +18,5 @@ help: |
   /date 23 14:00 - add yourself to the list on 23rd of the current month (time is optional);
   /date_list 23.04 - display the list for April 23 of the current year;
   /date_cancel 23.04.16 - remove yourself from the list on 23.04.16;
+  /cal 1 - display reserved days in January (it uses current month by default)
   There are 3 formats for date available: 14 - day, 14.09 - day and month, 14.09.15 - day, month and year;
