@@ -25,5 +25,13 @@ module TelegramMeetupBot
     def parse_time
       Time.parse(arg).strftime('%R') rescue nil
     end
+
+    def parse_month
+      month = arg.to_i
+
+      if month >= 1 && month <= 12
+        month
+      end
+    end
   end
 end

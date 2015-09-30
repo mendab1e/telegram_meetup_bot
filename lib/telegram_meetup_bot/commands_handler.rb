@@ -1,6 +1,7 @@
 module TelegramMeetupBot
   class CommandsHandler
-    COMMANDS = %w(today today_list today_cancel date date_list date_cancel help)
+    COMMANDS = %w(today today_list today_cancel
+      date date_list date_cancel help cal)
     attr_reader :command, :params, :helper
 
     def initialize(args)
@@ -53,6 +54,12 @@ module TelegramMeetupBot
     def date_cancel(params)
       date = ParamsParser.new(params.first).parse_date
       helper.handle_date_cancel date
+    end
+
+    def cal(params)
+      month = ParamsParser.new(params.first).parse_month if params.any?
+      month ||= Date.today.month
+      helper.handle_cal month
     end
 
     def help

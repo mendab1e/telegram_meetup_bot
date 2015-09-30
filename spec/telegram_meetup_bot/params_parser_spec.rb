@@ -66,4 +66,26 @@ RSpec.describe TelegramMeetupBot::ParamsParser do
       end
     end
   end
+
+  describe '#parse_month' do
+    context 'correct' do
+      let(:months) { %w(01 1) }
+
+      it 'works' do
+        months.each do |date|
+          expect(described_class.new(date).parse_month).to eq(1)
+        end
+      end
+    end
+
+    context 'wrong_format' do
+      let(:months) { %w(abc 13 0) }
+
+      it 'works' do
+        months.each do |date|
+          expect(described_class.new(date).parse_month).to eq(nil)
+        end
+      end
+    end
+  end
 end

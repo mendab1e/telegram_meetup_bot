@@ -18,7 +18,7 @@ module TelegramMeetupBot
     def handle_date_list(date)
       handle(date) do
         users = Calendar.formated_users_for_date(date)
-        messenger.send_text list_response(date, users)
+        messenger.send_text list_response(list: users, date: date)
       end
     end
 
@@ -43,6 +43,14 @@ module TelegramMeetupBot
       author.username
     end
 
+    def handle_cal(month)
+      dates = Calendar.submited_days_of_month(month)
+      today = Date.today
+      year = month < today.month ? today.next_year.year : today.year
+      month = Date.new(year, month)
+      messenger.send_text list_response(list: dates, month: month)
+    end
+
     private
 
     def handle(date, &block)
@@ -61,11 +69,11 @@ module TelegramMeetupBot
       end
     end
 
-    def list_response(date, list)
-      if list.empty?
-        build_response(date: date, key: 'nobody')
+    def list_response(args)
+      if args.fetch(:list).empty?
+        build_response(args.merge(key: 'nobody'))
       else
-        build_response(date: date) { |response| "#{response}\n#{list}" }
+        build_response(args) { |response| "#{response}\n#{args.fetch(:list)}" }
       end
     end
 
@@ -74,6 +82,7 @@ module TelegramMeetupBot
       response = Initializers::ResponsesLoader.responses[response_key].dup
       response.gsub!('%first_name%', author.first_name)
       response.gsub!('%date%', args[:date].strftime('%d %h %Y')) if args[:date]
+      response.gsub!('%date%', args[:month].strftime('%h %Y')) if args[:month]
 
       block_given? ? yield(response) : response
     end
