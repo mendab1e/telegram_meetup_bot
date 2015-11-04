@@ -44,7 +44,7 @@ module TelegramMeetupBot
       min, max = build_date_window(month)
 
       dates.keep_if { |date| date >= min && date <= max }.sort.
-        map { |date| date.match(/\d\d$/) }.join(' ')
+        map { |date| date.match(/\d\d$/) }.join(', ')
     end
 
     private
