@@ -2,19 +2,31 @@ require 'spec_helper'
 
 RSpec.describe TelegramMeetupBot::Calendar do
   let(:storage) { double('storage') }
-  let(:user) { TelegramMeetupBot::MessageParser::User.new(1, 'Ikari01', 'Shinji') }
+  let(:user) { TelegramMeetupBot::MessageParser::User.new(1, 'Unit01', 'Shinji') }
+  let(:user2) { TelegramMeetupBot::MessageParser::User.new(2, 'Unit02', 'Asuka') }
   before { allow(TelegramMeetupBot::Initializers::ConfigLoader).to receive(:storage).and_return(storage)}
   subject { described_class.new(user: user, date: Date.today, time: '10:00') }
 
   describe '#delete_user_from_date' do
     before { allow(storage).to receive(:set_users_to_date) }
+    before { allow(storage).to receive(:delete_date) }
 
-    context "when user exists in storage on selected date" do
-      before { allow(storage).to receive(:get_users_for_date).and_return([user.to_h]) }
+    context "when more than one users exist in storage on selected date" do
+      before { allow(storage).to receive(:get_users_for_date).and_return([user.to_h, user2.to_h]) }
 
       it { expect(subject.delete_user_from_date).to eq(true) }
       it 'set array without user to storage' do
-        expect(storage).to receive(:set_users_to_date).with([], Date.today)
+        expect(storage).to receive(:set_users_to_date).with([user2.to_h], Date.today)
+        subject.delete_user_from_date
+      end
+    end
+
+    context "when one user exists in storage on selected date" do
+      before { allow(storage).to receive(:get_users_for_date).and_return([user.to_h]) }
+
+      it { expect(subject.delete_user_from_date).to eq(true) }
+      it 'delete date key from storage' do
+        expect(storage).to receive(:delete_date).with(Date.today)
         subject.delete_user_from_date
       end
     end

@@ -22,7 +22,7 @@ module TelegramMeetupBot
       process_user do |users, saved_user|
         if saved_user
           users.delete(saved_user)
-          storage.set_users_to_date(users, date)
+          update_or_clean_date(users)
           true
         end
       end
@@ -61,6 +61,14 @@ module TelegramMeetupBot
         user.to_h.merge(time: time)
       else
         user.to_h
+      end
+    end
+
+    def update_or_clean_date(users)
+      if users.any?
+        storage.set_users_to_date(users, date)
+      else
+        storage.delete_date(date)
       end
     end
 
