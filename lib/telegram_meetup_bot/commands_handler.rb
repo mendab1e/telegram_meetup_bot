@@ -2,11 +2,12 @@ module TelegramMeetupBot
   class CommandsHandler
     COMMANDS = %w(today today_list today_cancel
       date date_list date_cancel help cal)
+    BLACK_LIST = %w(me)
     attr_reader :command, :params, :helper
 
     def initialize(args)
       parser = MessageParser.new(args.fetch(:message))
-      @command = COMMANDS.include?(parser.command) ? parser.command : 'help'
+      @command = commands.include?(parser.command) ? parser.command : 'help'
       @params = parser.params
       @helper = HandlerHelper.new(
         author: parser.author,
@@ -16,6 +17,8 @@ module TelegramMeetupBot
     end
 
     def process
+      return if BLACK_LIST.include?(command)
+
       if self.class.instance_method(command).arity == 0
         send command
       else
@@ -64,6 +67,10 @@ module TelegramMeetupBot
 
     def help
       helper.handle_default_command
+    end
+
+    def commands
+      COMMANDS + BLACK_LIST
     end
   end
 end
