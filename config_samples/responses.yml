@@ -1,10 +1,7 @@
-today: "We are waiting for you today, %first_name%."
-today_list: "Today visitors:"
-today_cancel: "We are waiting for you next time, %first_name%."
 date: "We are waiting for you on %date%, %first_name%."
-date_list: "%date% visitors:"
-date_cancel: "We are waiting for you next time, %first_name%."
-wrong_date_format: "Error: wrong date format. Correct formats are dd, dd.mm or dd.mm.yy."
+list: "%date% visitors:"
+cancel: "We are waiting for you next time, %first_name%."
+wrong_date_format: "Error: wrong date format. Correct formats are dd, dd.mm or dd.mm.yy"
 old_date: "This date is too old."
 nobody: "No one planned to come on %date%."
 not_subscribed: "You wasn't subscribed on %date%."
@@ -12,11 +9,11 @@ no_username: "%first_name%, please set a username in the Telegram settings."
 cal: "Reserved days in %date%:"
 help: |
   Hi, %first_name%. Use this commands list:
-  /today 14:00 - add yourself to the today list (time is optional);
-  /today_list - display the today list;
-  /today_cancel - remove yourself from the today list;
+  /date 14:00 - add yourself to the today list (time is optional);
   /date 23 14:00 - add yourself to the list on 23rd of the current month (time is optional);
-  /date_list 23.04 - display the list for April 23 of the current year;
-  /date_cancel 23.04.16 - remove yourself from the list on 23.04.16;
+  /list - display the today list;
+  /list 23.04 - display the list for April 23 of the current year;
+  /cancel - remove yourself from the today list;
+  /cancel 23.04.16 - remove yourself from the list on 23.04.16;
   /cal 1 - display reserved days in January (it uses current month by default)
   There are 3 formats for date available: 14 - day, 14.09 - day and month, 14.09.15 - day, month and year;

@@ -1,7 +1,6 @@
 module TelegramMeetupBot
   class CommandsHandler
-    COMMANDS = %w(today today_list today_cancel
-      date date_list date_cancel help cal)
+    COMMANDS = %w(date list cancel help cal)
     BLACK_LIST = %w(me)
     attr_reader :command, :params, :helper
 
@@ -19,43 +18,42 @@ module TelegramMeetupBot
     def process
       return if BLACK_LIST.include?(command)
 
-      if self.class.instance_method(command).arity == 0
-        send command
-      else
-        send command, params
-      end
-
+      call_command(command)
       helper.send_empty_username_notification unless helper.author_has_username?
     end
 
     private
 
-    def today(params)
-      time = ParamsParser.new(params.first).parse_time if params.any?
-      helper.handle_date(Date.today, time)
+    def commands
+      COMMANDS + BLACK_LIST
     end
+
+    def call_command(command)
+      if self.class.instance_method(command).arity == 0
+        send command
+      else
+        send command, params
+      end
+    end
+
+    # bot commands
 
     def date(params)
       date = ParamsParser.new(params.first).parse_date
-      time = ParamsParser.new(params[1]).parse_time if params[1]
+      time = ParamsParser.new(params[1] || params[0]).parse_time
+      date ||= Date.today if params.empty? || (time && params.size == 1)
       helper.handle_date(date, time)
     end
 
-    def today_list
-      helper.handle_date_list Date.today
-    end
-
-    def date_list(params)
+    def list(params)
       date = ParamsParser.new(params.first).parse_date
+      date ||= Date.today if params.empty?
       helper.handle_date_list date
     end
 
-    def today_cancel
-      helper.handle_date_cancel Date.today
-    end
-
-    def date_cancel(params)
+    def cancel(params)
       date = ParamsParser.new(params.first).parse_date
+      date ||= Date.today if params.empty?
       helper.handle_date_cancel date
     end
 
@@ -67,10 +65,6 @@ module TelegramMeetupBot
 
     def help
       helper.handle_default_command
-    end
-
-    def commands
-      COMMANDS + BLACK_LIST
     end
   end
 end

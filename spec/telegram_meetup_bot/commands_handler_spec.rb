@@ -19,11 +19,11 @@ RSpec.describe TelegramMeetupBot::CommandsHandler do
     end
 
     context "when command without args" do
-      let(:command) { '/today_list' }
+      let(:command) { '/help' }
 
       it "works" do
-        allow_any_instance_of(TelegramMeetupBot::HandlerHelper).to receive(:handle_date_list)
-        expect(subject).to receive(:today_list).with(no_args)
+        allow_any_instance_of(TelegramMeetupBot::HandlerHelper).to receive(:handle_default_command)
+        expect(subject).to receive(:help).with(no_args)
         subject.process
       end
     end

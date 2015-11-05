@@ -11,11 +11,11 @@ module TelegramMeetupBot
 
     def parse_date
       format = case arg
-      when /^[0-9]{,2}\.[0-9]{,2}\.[0-9][0-9]$/
+      when /\A[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{2}\Z/
         "%d.%m.%y"
-      when /^[0-9]{,2}\.[0-9]{,2}$/
+      when /\A[0-9]{1,2}\.[0-9]{1,2}\Z/
         "%d.%m"
-      when /^[0-9]{,2}$/
+      when /\A[0-9]{1,2}\Z/
         "%d"
       end
 
@@ -23,7 +23,9 @@ module TelegramMeetupBot
     end
 
     def parse_time
-      Time.parse(arg).strftime('%R') rescue nil
+      if arg =~ /\A[0-2][0-9]:[0-5][0-9]\Z/
+        Time.parse(arg).strftime('%R') rescue nil
+      end
     end
 
     def parse_month

@@ -35,7 +35,7 @@ RSpec.describe TelegramMeetupBot::ParamsParser do
     end
 
     context 'wrong format' do
-      let(:dates) { %w(abc 3.02.2007 3.02.7 2007.02.03 3-02-07 32.03.07 32) }
+      let(:dates) { %w(abc 3.02.2007 3.02.7 2007.02.03 3-02-07 32.03.07 32 3..07 .02.07 3.02.) }
 
       it 'returns nil' do
         dates.each do |date|
@@ -47,20 +47,20 @@ RSpec.describe TelegramMeetupBot::ParamsParser do
 
   describe '#parse_time' do
     context 'correct' do
-      let(:dates) { %w(01:05 1:05 1:5) }
+      let(:time) { %w(01:05) }
 
       it 'works' do
-        dates.each do |date|
+        time.each do |date|
           expect(described_class.new(date).parse_time).to eq('01:05')
         end
       end
     end
 
     context 'wrong_format' do
-      let(:dates) { %w(abc 25:05 01:61 -3) }
+      let(:time) { %w(abc 25:05 01:61 -3) }
 
       it 'works' do
-        dates.each do |date|
+        time.each do |date|
           expect(described_class.new(date).parse_time).to eq(nil)
         end
       end

@@ -71,7 +71,7 @@ RSpec.describe TelegramMeetupBot::Calendar do
       let(:dates) { %w(2015-07-30 2015-07-15 2015-07-16 2015-06-14 2015-08-17) }
       it "works" do
         Timecop.freeze(Date.new(2015, month - 1, 1)) do
-          expect(subject.submited_days_of_month(month)).to eq("15 16 30")
+          expect(subject.submited_days_of_month(month)).to eq("15, 16, 30")
         end
       end
     end
@@ -80,7 +80,7 @@ RSpec.describe TelegramMeetupBot::Calendar do
       let(:dates) { %w(2015-07-30 2015-07-15 2015-07-16 2015-06-14 2015-08-17) }
       it "starts from today" do
         Timecop.freeze(Date.new(2015, month, 16)) do
-          expect(subject.submited_days_of_month(month)).to eq("16 30")
+          expect(subject.submited_days_of_month(month)).to eq("16, 30")
         end
       end
     end
