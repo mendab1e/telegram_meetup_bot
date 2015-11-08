@@ -43,8 +43,10 @@ module TelegramMeetupBot
       dates = storage.get_all_available_dates
       min, max = build_date_window(month)
 
-      dates.keep_if { |date| date >= min && date <= max }.sort.
-        map { |date| date.match(/\d\d$/) }.join(', ')
+      dates = dates.keep_if { |date, _| date >= min && date <= max }.sort
+      dates.map do |date, users_yml|
+        "#{date.match(/\d\d$/)}(#{YAML.load(users_yml).count})"
+      end.join(', ')
     end
 
     private
