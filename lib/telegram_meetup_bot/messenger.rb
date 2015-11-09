@@ -17,7 +17,9 @@ module TelegramMeetupBot
       Telegram::Bot::Types::ReplyKeyboardMarkup.new(
         keyboard: [%w(/date /list /cal /cancel)],
         one_time_keyboard: false,
-        resize_keyboard: true
+        resize_keyboard: true,
+        selective: true,
+        force_reply: false
       )
     end
   end
