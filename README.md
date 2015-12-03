@@ -35,7 +35,11 @@ bot_name: 'meetup_dev_bot'
 redis_host: 'localhost'
 redis_port: '6379'
 redis_key: 'meetup_bot'
+botan_key: ''
 ```
+
+The gem supports [botan.io](http://botan.io/) – free telegram analytics tool. All you have to do is obtain botan_key and specify it in ```config.yml```.
+
 If you use more than one bot per redis server, use different redis_keys for each of them.
 
 Also you could change sample responses in ```~/.telegram_meetup_bot/responses.yml```. It uses templates ```%first_name%``` and ```%date%``` to display actual name and date in messages.
