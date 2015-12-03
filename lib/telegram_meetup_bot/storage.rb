@@ -17,7 +17,7 @@ module TelegramMeetupBot
     end
 
     def get_all_available_dates
-      dates = redis.hgetall(key)
+      redis.hgetall(key)
     end
 
     def delete_date(date)

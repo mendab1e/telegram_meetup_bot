@@ -51,6 +51,15 @@ module TelegramMeetupBot
       messenger.send_text list_response(list: dates, month: month)
     end
 
+    def handle_user(username)
+      username ||= author.username
+      dates = Calendar.submited_days_by_user(username)
+      month = Date.today
+      response = list_response(list: dates, month: month, username: username,
+        empty_key: 'user_without_reservation')
+      messenger.send_text response
+    end
+
     private
 
     def handle(date, &block)
@@ -70,8 +79,10 @@ module TelegramMeetupBot
     end
 
     def list_response(args)
+      empty_key = args.fetch(:empty_key) { 'nobody' }
+
       if args.fetch(:list).empty?
-        build_response(args.merge(key: 'nobody'))
+        build_response(args.merge(key: empty_key))
       else
         build_response(args) { |response| "#{response}\n#{args.fetch(:list)}" }
       end
@@ -83,6 +94,7 @@ module TelegramMeetupBot
       response.gsub!('%first_name%', author.first_name)
       response.gsub!('%date%', args[:date].strftime('%d %h %Y')) if args[:date]
       response.gsub!('%date%', args[:month].strftime('%h %Y')) if args[:month]
+      response.gsub!('%username%', args[:username]) if args[:username]
 
       block_given? ? yield(response) : response
     end

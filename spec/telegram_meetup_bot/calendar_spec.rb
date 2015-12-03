@@ -121,4 +121,57 @@ RSpec.describe TelegramMeetupBot::Calendar do
       end
     end
   end
+
+  describe 'Calendar#submited_days_by_user' do
+    let(:storage) { double('storage') }
+    let(:month) { 7 }
+    let(:username) { 'timur' }
+    subject { described_class }
+    before { allow(storage).to receive(:get_all_available_dates).and_return(dates) }
+
+    context "when has reserved days in current month" do
+      let(:dates) {
+        {"2015-07-30"=>"---\n- :id: 65208698\n  :username: #{username}\n  :first_name: Timur\n",
+         "2015-07-15"=>"---\n- :id: 65208698\n  :username: #{username}\n  :first_name: Timur\n",
+         "2015-07-16"=>"---\n- :id: 65208698\n  :username: #{username}\n  :first_name: Timur\n  :time: '10:10'\n",
+         "2015-06-14"=>"---\n- :id: 65208698\n  :username: #{username}\n  :first_name: Timur\n",
+         "2015-08-17"=>"---\n- :id: 65208698\n  :username: #{username}\n  :first_name: Timur\n"}
+      }
+      it "works" do
+        Timecop.freeze(Date.new(2015, month, 1)) do
+          expect(subject.submited_days_by_user(username)).to eq("15, 16, 30")
+        end
+      end
+    end
+
+    context "when has reserved days in the reset of current month" do
+      let(:dates) {
+        {"2015-07-30"=>"---\n- :id: 65208698\n  :username: #{username}\n  :first_name: Timur\n",
+         "2015-07-15"=>"---\n- :id: 65208698\n  :username: #{username}\n  :first_name: Timur\n",
+         "2015-07-16"=>"---\n- :id: 65208698\n  :username: #{username}\n  :first_name: Timur\n  :time: '10:10'\n",
+         "2015-06-14"=>"---\n- :id: 65208698\n  :username: #{username}\n  :first_name: Timur\n",
+         "2015-08-17"=>"---\n- :id: 65208698\n  :username: #{username}\n  :first_name: Timur\n"}
+      }
+      it "works" do
+        Timecop.freeze(Date.new(2015, month, 20)) do
+          expect(subject.submited_days_by_user(username)).to eq("30")
+        end
+      end
+    end
+
+    context "when hasn't reserved any days in current month" do
+      let(:dates) {
+        {"2015-07-30"=>"---\n- :id: 65208692\n  :username: asuka\n  :first_name: Asuka\n",
+         "2015-07-15"=>"---\n- :id: 65208692\n  :username: asuka\n  :first_name: Asuka\n",
+         "2015-07-16"=>"---\n- :id: 65208692\n  :username: asuka\n  :first_name: Asuka\n  :time: '10:10'\n",
+         "2015-06-14"=>"---\n- :id: 65208698\n  :username: #{username}\n  :first_name: Timur\n",
+         "2015-08-17"=>"---\n- :id: 65208698\n  :username: #{username}\n  :first_name: Timur\n"}
+      }
+      it "starts from today" do
+        Timecop.freeze(Date.new(2015, month, 1)) do
+          expect(subject.submited_days_by_user(username)).to eq("")
+        end
+      end
+    end
+  end
 end

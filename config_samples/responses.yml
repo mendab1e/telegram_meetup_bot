@@ -7,6 +7,8 @@ nobody: "No one planned to come on %date%."
 not_subscribed: "You wasn't subscribed on %date%."
 no_username: "%first_name%, please set a username in the Telegram settings."
 cal: "Reserved days (number of people) in %date%:"
+user: "@%username% has reserved these days in %date%:"
+user_without_reservation: "@%username% hasn't reserved any days in %date%."
 help: |
   Hi, %first_name%. Use this commands list:
   /date 14:00 - add yourself to the today list (time is optional);

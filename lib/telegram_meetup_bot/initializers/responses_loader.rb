@@ -3,7 +3,7 @@ module TelegramMeetupBot
     class ResponsesLoader < Base
       FILE_NAME = 'responses.yml'
       AVAILABLE_KEYS = %w(date list cancel wrong_date_format old_date nobody
-        not_subscribed no_username help cal)
+        not_subscribed no_username help cal user user_without_reservation)
 
       def self.responses
         @configurations

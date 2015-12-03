@@ -1,6 +1,6 @@
 module TelegramMeetupBot
   class CommandsHandler
-    COMMANDS = %w(date list cancel help cal)
+    COMMANDS = %w(date list cancel help cal user)
     BLACK_LIST = %w(me)
     attr_reader :command, :params, :helper, :botan
 
@@ -63,6 +63,10 @@ module TelegramMeetupBot
       month = ParamsParser.new(params.first).parse_month if params.any?
       month ||= Date.today.month
       helper.handle_cal month
+    end
+
+    def user(params)
+      helper.handle_user params.first
     end
 
     def help
