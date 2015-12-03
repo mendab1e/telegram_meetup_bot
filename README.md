@@ -4,9 +4,9 @@
 
 Telegram bot for meetups organisation. It suits really well for small communities, where people want to attend a place together, but not on regular basis.
 
-![chat example](https://cloud.githubusercontent.com/assets/854386/10962172/1461e79a-83a7-11e5-94b4-78c6d53f648c.png)
+![chat example](https://cloud.githubusercontent.com/assets/854386/11559969/0081da72-99ce-11e5-8950-7375a12e2faf.png)
 
-Available commands: ```/date, /list, /cancel, /cal, /help```
+Available commands: ```/date, /list, /cancel, /cal, /help, /user```
 
 ## Installation
 

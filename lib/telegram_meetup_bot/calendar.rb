@@ -53,10 +53,11 @@ module TelegramMeetupBot
       storage = Initializers::ConfigLoader.storage
       dates = storage.get_all_available_dates
       min, max = build_dates_window(Date.today.month)
+      username.downcase!
 
       dates = dates.keep_if do |date, users_yml|
         date >= min && date <= max &&
-          YAML.load(users_yml).any? { |user| user[:username] == username }
+          YAML.load(users_yml).any? { |u| u[:username].downcase == username }
       end
 
       dates.sort.map { |date, _| date.match(/\d\d$/) }.join(', ')
