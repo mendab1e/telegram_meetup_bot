@@ -24,5 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "timecop"
 
   spec.add_dependency 'redis'
-  spec.add_dependency 'telegram-bot-ruby', ">= 0.3.5"
+  spec.add_dependency 'telegram-bot-ruby', ">= 0.3.11"
 end

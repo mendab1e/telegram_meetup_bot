@@ -1,4 +1,5 @@
 require 'telegram/bot'
+require 'telegram/bot/botan'
 require 'redis'
 
 require 'telegram_meetup_bot/version'
@@ -11,6 +12,7 @@ require 'telegram_meetup_bot/calendar'
 require 'telegram_meetup_bot/commands_handler'
 require 'telegram_meetup_bot/params_parser'
 require 'telegram_meetup_bot/handler_helper'
+require 'telegram_meetup_bot/botan'
 
 module TelegramMeetupBot
   def self.run(config_path)

@@ -2,7 +2,7 @@ module TelegramMeetupBot
   class CommandsHandler
     COMMANDS = %w(date list cancel help cal)
     BLACK_LIST = %w(me)
-    attr_reader :command, :params, :helper
+    attr_reader :command, :params, :helper, :botan
 
     def initialize(args)
       parser = MessageParser.new(args.fetch(:message))
@@ -13,12 +13,14 @@ module TelegramMeetupBot
         command: @command,
         messenger: args.fetch(:messenger)
       )
+      @botan = args[:botan]
     end
 
     def process
       return if BLACK_LIST.include?(command)
 
       call_command(command)
+      botan.track(command) if botan
       helper.send_empty_username_notification unless helper.author_has_username?
     end
 

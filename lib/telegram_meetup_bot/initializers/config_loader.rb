@@ -1,8 +1,10 @@
 module TelegramMeetupBot
   module Initializers
     class ConfigLoader < Base
+      EMPTY = ''
       FILE_NAME = 'config.yml'
-      AVAILABLE_KEYS = %w(bot_token bot_name redis_key redis_port redis_host)
+      AVAILABLE_KEYS = %w(bot_token bot_name redis_key
+        redis_port redis_host botan_key)
 
       class << self
         def storage
@@ -15,6 +17,14 @@ module TelegramMeetupBot
 
         def bot_name
           @configurations['bot_name']
+        end
+
+        def botan_key
+          @key ||= if @configurations['botan_key'] == EMPTY
+            nil
+          else
+            @configurations['botan_key']
+          end
         end
 
         private

@@ -1,5 +1,7 @@
 module TelegramMeetupBot
   class Client
+    TIMEOUT = 1
+
     attr_reader :token
 
     def initialize(token)
@@ -7,20 +9,37 @@ module TelegramMeetupBot
     end
 
     def run
-      begin
-        Telegram::Bot::Client.run(token) do |bot|
-          bot.listen do |message|
-            if message.text
-              messenger = Messenger.new(api: bot.api, chat_id: message.chat.id)
-              CommandsHandler.new(message: message, messenger: messenger).process
-            end
-          end
+      Telegram::Bot::Client.run(token) do |bot|
+        bot.enable_botan!(botan_key) if botan_key
+        bot.listen do |message|
+          process_message(bot, message) if message.text
         end
-      rescue Telegram::Bot::Exceptions::ResponseError => e
-        puts e
-        sleep 1
-        retry # run again on telegram server error
       end
+    rescue Telegram::Bot::Exceptions::ResponseError => e
+      write_log_and_sleep(e)
+      retry # run again on telegram server error
+    end
+
+    private
+
+    def process_message(bot, message)
+      messenger = Messenger.new(api: bot.api, chat_id: message.chat.id)
+      botan = Botan.new(bot: bot, author_id: message.from.id) if botan_key
+
+      CommandsHandler.new(
+        message: message,
+        messenger: messenger,
+        botan: botan
+      ).process
+    end
+
+    def botan_key
+      Initializers::ConfigLoader.botan_key
+    end
+
+    def write_log_and_sleep(error)
+      puts "#{Time.now}: #{error}"
+      sleep TIMEOUT
     end
   end
 end
