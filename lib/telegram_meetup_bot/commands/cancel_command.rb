@@ -1,6 +1,6 @@
 module TelegramMeetupBot
   module Commands
-    class Cal < Base
+    class CancelCommand < Base
 
     end
   end

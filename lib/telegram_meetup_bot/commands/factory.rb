@@ -15,7 +15,7 @@ module TelegramMeetupBot
 
         def klass(command)
           command = whitelisted_command(command).capitalize
-          Object.const_get "TelegramMeetupBot::Commands::#{command}"
+          Object.const_get "TelegramMeetupBot::Commands::#{command}Command"
         end
 
         def whitelisted_command(command)

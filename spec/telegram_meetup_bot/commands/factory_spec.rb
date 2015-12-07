@@ -20,7 +20,7 @@ RSpec.describe TelegramMeetupBot::Commands::Factory do
       let(:command) { '/date' }
 
       it 'works' do
-        expect(subject.class).to eq(TelegramMeetupBot::Commands::Date)
+        expect(subject.class).to eq(TelegramMeetupBot::Commands::DateCommand)
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe TelegramMeetupBot::Commands::Factory do
       let(:command) { '/qwerty' }
 
       it 'uses default command' do
-        expect(subject.class).to eq(TelegramMeetupBot::Commands::Help)
+        expect(subject.class).to eq(TelegramMeetupBot::Commands::HelpCommand)
       end
     end
   end

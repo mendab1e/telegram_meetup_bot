@@ -1,6 +1,6 @@
 module TelegramMeetupBot
   module Commands
-    class Cancel < Base
+    class HelpCommand < Base
 
     end
   end

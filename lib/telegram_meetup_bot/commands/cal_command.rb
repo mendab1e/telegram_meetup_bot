@@ -1,6 +1,6 @@
 module TelegramMeetupBot
   module Commands
-    class Date < Base
+    class CalCommand < Base
 
     end
   end

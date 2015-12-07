@@ -1,6 +1,6 @@
 module TelegramMeetupBot
   module Commands
-    class User < Base
+    class UserCommand < Base
 
     end
   end
