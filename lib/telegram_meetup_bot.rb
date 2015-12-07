@@ -13,6 +13,7 @@ require 'telegram_meetup_bot/commands_handler'
 require 'telegram_meetup_bot/params_parser'
 require 'telegram_meetup_bot/handler_helper'
 require 'telegram_meetup_bot/botan'
+require 'telegram_meetup_bot/commands'
 
 module TelegramMeetupBot
   def self.run(config_path)

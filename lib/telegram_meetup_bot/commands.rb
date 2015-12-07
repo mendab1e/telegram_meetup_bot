@@ -1,0 +1,8 @@
+require 'telegram_meetup_bot/commands/base'
+require 'telegram_meetup_bot/commands/cal'
+require 'telegram_meetup_bot/commands/cancel'
+require 'telegram_meetup_bot/commands/date'
+require 'telegram_meetup_bot/commands/help'
+require 'telegram_meetup_bot/commands/list'
+require 'telegram_meetup_bot/commands/user'
+require 'telegram_meetup_bot/commands/factory'
