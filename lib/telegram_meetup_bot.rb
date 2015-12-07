@@ -11,7 +11,6 @@ require 'telegram_meetup_bot/storage'
 require 'telegram_meetup_bot/calendar'
 require 'telegram_meetup_bot/commands_handler'
 require 'telegram_meetup_bot/params_parser'
-require 'telegram_meetup_bot/handler_helper'
 require 'telegram_meetup_bot/botan'
 require 'telegram_meetup_bot/commands'
 
