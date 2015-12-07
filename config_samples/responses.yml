@@ -18,4 +18,6 @@ help: |
   /cancel - remove yourself from the today list;
   /cancel 23.04.16 - remove yourself from the list on 23.04.16;
   /cal 1 - display reserved days in January (it uses current month by default)
+  /user - display your reserved days
+  /user username - display reserved days by username
   There are 3 formats for date available: 14 - day, 14.09 - day and month, 14.09.15 - day, month and year;

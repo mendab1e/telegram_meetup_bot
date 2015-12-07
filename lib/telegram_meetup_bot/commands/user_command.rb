@@ -10,7 +10,7 @@ module TelegramMeetupBot
       private
 
       def username
-        params.first || author.username
+        params.first.sub('@', '') || author.username
       end
     end
   end
