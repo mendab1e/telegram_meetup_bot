@@ -1,14 +1,15 @@
 module TelegramMeetupBot
   module Commands
     class Factory
-      COMMANDS = %w(date list cancel help cal user)
-      BLACK_LIST = %w(me)
-      DEFAULT_COMMAND = 'help'
-
       class << self
         def build(message)
           return if BLACK_LIST.include?(message.command)
-          klass(message.command).new(message)
+
+          if no_username?(message)
+            TelegramMeetupBot::Commands::NilUsername.new(message)
+          else
+            klass(message.command).new(message)
+          end
         end
 
         private
@@ -20,6 +21,10 @@ module TelegramMeetupBot
 
         def whitelisted_command(command)
           COMMANDS.include?(command) ? command : DEFAULT_COMMAND
+        end
+
+        def no_username?(message)
+          message.author.username.nil?
         end
       end
     end

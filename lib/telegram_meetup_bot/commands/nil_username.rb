@@ -1,8 +1,8 @@
 module TelegramMeetupBot
   module Commands
-    class HelpCommand < Base
+    class NilUsername < Base
       def exec
-        build_response
+        build_response(key: 'no_username')
       end
     end
   end

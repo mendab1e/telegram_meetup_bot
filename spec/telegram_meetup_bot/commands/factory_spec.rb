@@ -31,5 +31,14 @@ RSpec.describe TelegramMeetupBot::Commands::Factory do
         expect(subject.class).to eq(TelegramMeetupBot::Commands::HelpCommand)
       end
     end
+
+    context 'user without username' do
+      let(:from) { instance_double('from', id: 1, username: nil, first_name: 'Shinji') }
+      let(:command) { '/date' }
+
+      it 'does something' do
+        expect(subject.class).to eq(TelegramMeetupBot::Commands::NilUsername)
+      end
+    end
   end
 end

@@ -8,21 +8,25 @@ module TelegramMeetupBot
       end
 
       def exec
+        fail NotImplementedError, 'This method should be overriden'
+      end
 
+      def command
+        @command ||= if COMMANDS.include?(message.command)
+          message.command
+        else
+          DEFAULT_COMMAND
+        end
       end
 
       private
-
-      def params
-        message.params
-      end
 
       def author
         message.author
       end
 
-      def command
-        message.command
+      def params
+        message.params
       end
 
       def handle_date(date, &block)
