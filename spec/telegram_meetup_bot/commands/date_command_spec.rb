@@ -11,7 +11,7 @@ RSpec.describe TelegramMeetupBot::Commands::DateCommand do
     subject { described_class.new(message_parser) }
 
     context 'valid date' do
-      let(:command) { '/date 21.01.16' }
+      let(:command) { "/date #{(Date.today + 1).strftime('%d.%m.%y')}" }
 
       it 'works' do
         allow_any_instance_of(TelegramMeetupBot::Calendar).to receive(:add_user_to_date)

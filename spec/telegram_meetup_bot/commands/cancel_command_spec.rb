@@ -11,7 +11,7 @@ RSpec.describe TelegramMeetupBot::Commands::CancelCommand do
     subject { described_class.new(message_parser) }
 
     context 'valid date' do
-      let(:command) { '/cancel 21.01.16' }
+      let(:command) { "/cancel #{(Date.today + 1).strftime('%d.%m.%y')}" }
 
       it 'works' do
         allow_any_instance_of(TelegramMeetupBot::Calendar).to receive(:delete_user_from_date)
