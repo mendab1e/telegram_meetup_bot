@@ -12,7 +12,12 @@ module TelegramMeetupBot
       Telegram::Bot::Client.run(token) do |bot|
         bot.enable_botan!(botan_key) if botan_key
         bot.listen do |message|
-          process_message(bot, message) if message.text
+          case message
+          when Telegram::Bot::Types::Message
+            process_message(bot, message) if message.text
+          when Telegram::Bot::Types::CallbackQuery
+            process_callback_query(bot, message) if message.data
+          end
         end
       end
     rescue Telegram::Bot::Exceptions::ResponseError => e
@@ -30,6 +35,17 @@ module TelegramMeetupBot
         message: message,
         messenger: messenger,
         botan: botan
+      ).process
+    end
+
+    def process_callback_query(bot, callback_query)
+      messenger = Messenger.new(api: bot.api,
+        chat_id: callback_query.message.chat.id,
+        message_id: callback_query.message.message_id)
+
+      CommandsHandler.new(
+        callback_query: callback_query,
+        messenger: messenger
       ).process
     end
 
