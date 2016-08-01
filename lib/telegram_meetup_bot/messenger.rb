@@ -11,7 +11,8 @@ module TelegramMeetupBot
     def send_text(text, markup = nil)
       return if chat_id.nil?
 
-      api.send_message(chat_id: chat_id, text: text, reply_markup: markup)
+      api.send_message(chat_id: chat_id,text: text,
+        reply_markup: markup) rescue nil
     end
 
     def edit_text(text, markup = nil)
