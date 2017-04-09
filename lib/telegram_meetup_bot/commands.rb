@@ -9,5 +9,3 @@ require 'telegram_meetup_bot/commands/list_command'
 require 'telegram_meetup_bot/commands/user_command'
 
 COMMANDS = %w(date list cancel help cal user)
-BLACK_LIST = %w(me)
-DEFAULT_COMMAND = 'help'

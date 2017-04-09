@@ -27,8 +27,8 @@ RSpec.describe TelegramMeetupBot::Commands::Factory do
     context 'not available command' do
       let(:command) { '/qwerty' }
 
-      it 'uses default command' do
-        expect(subject.class).to eq(TelegramMeetupBot::Commands::HelpCommand)
+      it 'ignore command' do
+        expect(subject).to eq(nil)
       end
     end
 

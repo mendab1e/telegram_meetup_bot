@@ -3,7 +3,7 @@ module TelegramMeetupBot
     class Factory
       class << self
         def build(message)
-          return if BLACK_LIST.include?(message.command)
+          return unless COMMANDS.include?(message.command)
 
           if no_username?(message)
             TelegramMeetupBot::Commands::NilUsername.new(message)
@@ -15,12 +15,8 @@ module TelegramMeetupBot
         private
 
         def klass(command)
-          command = whitelisted_command(command).capitalize
+          command = command.capitalize
           Object.const_get "TelegramMeetupBot::Commands::#{command}Command"
-        end
-
-        def whitelisted_command(command)
-          COMMANDS.include?(command) ? command : DEFAULT_COMMAND
         end
 
         def no_username?(message)

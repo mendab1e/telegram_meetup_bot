@@ -14,8 +14,6 @@ module TelegramMeetupBot
       def command
         @command ||= if COMMANDS.include?(message.command)
           message.command
-        else
-          DEFAULT_COMMAND
         end
       end
 
